@@ -15,8 +15,13 @@ class Admin extends CI_Controller
     {
         $data = [
             'title'     => 'Admin',
-            'transaksi' => $this->m_transaksi->getData()
+            'transaksi' => $this->m_transaksi->getData(),
+            'jml_buku' => $this->db->get('buku')->num_rows(),
+            'denda' => $this->db->select_sum('denda')->get('transaksi')->row_array()['denda'],
+            'pinjam' => $this->db->get_where('transaksi', ['tgl_kembali'=>null])->num_rows(),
+            'kembali' => $this->db->get_where('transaksi', ['tgl_kembali !='=>null])->num_rows(),
         ];
+        // var_dump($data); die;
         $this->template->load('admin/template', 'admin/home', $data);
     }
 

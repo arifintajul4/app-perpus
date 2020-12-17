@@ -104,6 +104,76 @@
     </div>
     <!-- ./wrapper -->
 
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Detail Buku</h4>
+                </div>
+                <form id="form" action="" method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img id="sampul" width="200" height="350" src="" alt="foto sampul buku">
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>Judul Buku</td>
+                                    <td id="judul_buku"></td>
+                                </tr>
+                                <tr>
+                                    <td>Penerbit</td>
+                                    <td id="penerbit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Pengarang</td>
+                                    <td id="pengarang"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tahun Terbit</td>
+                                    <td id="tahun_terbit"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nomor Rak</td>
+                                    <td id="nomor_rak"></td>
+                                </tr>
+                                <tr>
+                                    <td>Jumlah</td>
+                                    <td id="jumlah"></td>
+                                </tr>
+                            </table>
+                            <?php if(!$this->session->userdata('isLogin')):?>
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-warning"></i> Peringatan!</h4>
+                                    Silahkan login terlebih dahulu agar dapat melakukan peminjaman buku
+                                </div>
+                            <?php else: ?>
+                            <div class="form-group">
+                                <label for="tgl_pinjam">Tanggal Peminjaman</label>
+                                <input type="date" name="tgl_pinjam" id="tgl_pinjam" class="form-control" value="<?= date('Y-m-d') ?>" readonly>
+                                <small class="text-danger">*maksimal waktu peminjaman adalah 7 hari</small><br>
+                                <small class="text-danger">*jika lebih dari itu akan dikenakan denda Rp.1.000/Hari</small>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" <?= (!$this->session->userdata('isLogin'))?'disabled':'' ?> name="submit" class="btn btn-primary"  onclick="return confirm('apakah anda yakin?')">Pinjam</button>
+                </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
     <!-- jQuery 3 -->
     <script src="<?= base_url('assets/bower_components/jquery/dist/jquery.min.js') ?>"></script>
     <script src="<?= base_url('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
@@ -112,6 +182,31 @@
     <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
     <script src="<?= base_url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
     <script src="<?= base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') ?>"></script>
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '.detail', function() {
+                let id = $(this).data('id');
+                $('#form').attr('action', "<?= base_url('transaksi/userpinjam/') ?>"+id)
+                console.log(id);
+                $.ajax({
+                    url: '<?= base_url('buku/getdata/'); ?>'+id,
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data: {id: id },
+                    success: function(data) {
+                        console.log(data);
+                        $('#sampul').attr('src', "<?= base_url('assets/img/buku/') ?>"+data.sampul)
+                        $('#judul_buku').html(": "+data.judul_buku);
+                        $('#pengarang').html(": "+data.pengarang);
+                        $('#penerbit').html(": "+data.penerbit);
+                        $('#tahun_terbit').html(": "+data.tahun_terbit);
+                        $('#nomor_rak').html(": "+data.nomor_rak);
+                        $('#jumlah').html(": "+data.jumlah);
+                    }
+                })
+            });
+        });
+    </script>
 </body>
 
 </html>

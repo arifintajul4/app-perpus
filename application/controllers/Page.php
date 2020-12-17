@@ -40,6 +40,7 @@ class Page extends CI_Controller
                 if (password_verify($password, $user['password'])) {
                     $data = [
                         'isLogin'   => true,
+                        'no_reg'    => $user['no_reg'],
                         'nama'      => $user['nama_siswa'],
                         'hak_akses' => 'siswa',
                     ];

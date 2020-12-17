@@ -141,7 +141,7 @@
 							<li class="<?= ($title == 'Transaksi Kembali') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/kembali') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
 						</ul>
 	        		</li>
-                    <li class="treeview <?= ($title == 'Buku') ? 'active' : '' ?>">
+                    <li class="treeview <?= ($title == 'Buku' || $title == 'Siswa') ? 'active' : '' ?>">
 						<a href="#">
 							<i class="fa fa-database"></i>
 							<span>Master Data</span>
@@ -151,7 +151,7 @@
 						</a>
 						<ul class="treeview-menu">
 							<li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
-							<li><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
+							<li class="<?= ($title == 'Siswa') ? 'active' : '' ?>"><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
 							<li><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
 						</ul>
 	        		</li>
