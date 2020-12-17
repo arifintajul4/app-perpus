@@ -46,7 +46,7 @@
                                     <td><?= $row['jumlah'] ?></td>
                                     <td class="text-center">
                                         <button class="btn btn-sm btn-warning edit" data-toggle="modal" data-target="#modal-default" data-id="<?= $row['id']; ?>"><i class="fa fa-edit"></i></button>
-                                        <a href="<?= base_url('admin/delete/' . $row['id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                        <a href="<?= base_url('buku/delete/' . $row['id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -67,7 +67,7 @@
                     <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Tambah Buku</h4>
             </div>
-            <form id="form" action="<?= base_url('buku/add') ?>" method="POST">
+            <form id="form" action="<?= base_url('buku/add') ?>" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="kd_buku">Kode Buku</label>
@@ -78,32 +78,28 @@
                         <input type="text" name="judul_buku" id="judul_buku" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control" required>
-                            <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
-                        </select>  
+                        <label for="sampul">Sampul Buku</label>
+                        <input type="file" name="sampul" id="sampul" class="form-control"  accept="image/*" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" required>
+                        <label for="penerbit">Penerbit</label>
+                        <input type="text" name="penerbit" id="penerbit" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="no_telepon">No Telepon</label>
-                        <input type="text" name="no_telepon" id="no_telepon" class="form-control" required>
+                        <label for="pengarang">Pengarang</label>
+                        <input type="text" name="pengarang" id="pengarang" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="status">Status</label>
-                        <select name="status" id="status" class="form-control" required>
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
-                        </select>  
+                        <label for="tahun_terbit">Tahun Terbit</label>
+                        <input type="number" min="1980" name="tahun_terbit" id="tahun_terbit" class="form-control" required>
                     </div>
-                    <div class="form-group pass">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
-                        <small>*jika kosong password default: <b>admin</b></small>
-                        <a href="#" class="pull-right show-password show">Tampil Password</a>
+                    <div class="form-group">
+                        <label for="nomor_rak">Nomor Rak</label>
+                        <input type="number" min="0" name="nomor_rak" id="nomor_rak" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah</label>
+                        <input type="number" min="0" name="jumlah" id="jumlah" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -120,39 +116,41 @@
 
 <script>
     $(document).ready(function() {
-        $('#addAdmin').on('click', function() {
-            $('.modal-title').html('Tambah Admin');
-            $('#form').attr('action', '<?= base_url('admin/add') ?>');
-            $('.pass').removeClass('hide');
-            $('#username').val('');
-            $('#nama_lengkap').val('');
-            $('#no_telepon').val('');
-            $('#jenis_kelamin').val('');
-            $('#email').val('');
-            $('#status').val('1');
-            $('#password').val('');
+        $('#addBuku').on('click', function() {
+            $('.modal-title').html('Tambah Data Buku');
+            $('#form').attr('action', '<?= base_url('buku/add') ?>');
+            $('#kd_buku').attr('readonly', false);
+            $('#judul_buku').val('');
+            $('#sampul').val('');
+            $('#sampul').attr('required', true);
+            $('#kd_buku').val('');
+            $('#pengarang').val('');
+            $('#penerbit').val('');
+            $('#tahun_terbit').val('');
+            $('#nomor_rak').val('');
+            $('#jumlah').val('');
         });
 
         $(document).on('click', '.edit', function() {
             let id = $(this).data('id');
-            $('.modal-title').html('Edit Data Admin');
-            $('#form').attr('action', '<?= base_url('admin/update/') ?>' + id);
-            $('.pass').addClass('hide');
-            $('#username').attr('readonly', true);
+            $('.modal-title').html('Edit Data Buku');
+            $('#form').attr('action', '<?= base_url('buku/update/') ?>' + id);
+            $('#kd_buku').attr('readonly', true);
+            $('#sampul').val('');
+            $('#sampul').attr('required', false);
             $.ajax({
-                url: '<?= base_url('admin/getdata'); ?>',
-                method: 'post',
+                url: '<?= base_url('buku/getdata/'); ?>'+id,
+                method: 'POST',
                 dataType: 'JSON',
-                data: {
-                    id: id
-                },
+                data: {id: id },
                 success: function(data) {
-                    $('#username').val(data.username);
-                    $('#nama_lengkap').val(data.nama_lengkap);
-                    $('#jenis_kelamin').val(data.jenis_kelamin);
-                    $('#email').val(data.email);
-                    $('#no_telepon').val(data.no_telepon);
-                    $('#status').val(data.status);
+                    $('#judul_buku').val(data.judul_buku);
+                    $('#kd_buku').val(data.kd_buku);
+                    $('#pengarang').val(data.pengarang);
+                    $('#penerbit').val(data.penerbit);
+                    $('#tahun_terbit').val(data.tahun_terbit);
+                    $('#nomor_rak').val(data.nomor_rak);
+                    $('#jumlah').val(data.jumlah);
                 }
             })
         });

@@ -15,10 +15,41 @@
     <link rel="stylesheet" href="<?= base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/AdminLTE.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/skins/_all-skins.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url().'assets/jquery-ui/jquery-ui.css'?>">
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            z-index: 99999 !important;
+            cursor: default;
+            padding: 0;
+            margin-top: 2px;
+            list-style: none;
+            background-color: #ffffff;
+            border: 1px solid #ccc -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .ui-autocomplete>li {
+            padding: 3px 20px;
+        }
+
+        .ui-autocomplete>li.ui-state-focus {
+            background-color: #DDD;
+        }
+
+        .ui-helper-hidden-accessible {
+            display: none;
+        }
+    </style>
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="<?= base_url('assets/bower_components/jquery/dist/jquery.min.js') ?>"></script>
+    <script src="<?php echo base_url().'assets/jquery-ui/jquery-ui.js'?>" type="text/javascript"></script>
 
 </head>
 
@@ -97,7 +128,7 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview <?= ($title == 'Transaksi Pinjam' || $title =='Transaksi Kembali') ? 'active' : '' ?>">
 						<a href="#">
 							<i class="fa fa-table"></i>
 							<span>Transaksi</span>
@@ -106,11 +137,11 @@
 							</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="<?= base_url('peminjaman') ?>"><i class="fa fa-circle-o"></i> Peminjaman</a></li>
-							<li><a href="<?= base_url('pengembalian') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
+							<li class="<?= ($title == 'Transaksi Pinjam') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/pinjam') ?>"><i class="fa fa-circle-o"></i> Peminjaman</a></li>
+							<li class="<?= ($title == 'Transaksi Kembali') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/kembali') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
 						</ul>
 	        		</li>
-                    <li class="treeview">
+                    <li class="treeview <?= ($title == 'Buku') ? 'active' : '' ?>">
 						<a href="#">
 							<i class="fa fa-database"></i>
 							<span>Master Data</span>
@@ -119,7 +150,7 @@
 							</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
+							<li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
 							<li><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
 							<li><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
 						</ul>

@@ -28,7 +28,7 @@ class Auth extends CI_Controller
                         'hak_akses' => 'admin',
                     ];
                     $this->session->set_userdata($data);
-                    redirect('/');
+                    redirect('/admin');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password Salah!</div>');
                     redirect('auth');

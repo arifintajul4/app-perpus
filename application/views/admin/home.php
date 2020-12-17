@@ -79,52 +79,192 @@
     <!-- /.row -->
     <h3>Data Transaksi Terkini</h3>
     <div class="row ">
-       <div class="col-xs-12">
-           <div class="box">
-               <div class="box-body">
+       	<div class="col-xs-12">
+           	<div class="box">
+               	<div class="box-body">
+					<button class="btn btn-primary" style="margin-bottom:10px;" data-toggle="modal" data-target="#add-data"><i class="fa fa-plus"></i> Tambah Data</button>
+					<?= $this->session->flashdata('message'); ?>
                     <table  id="dataTable" class="table display responsive nowrap" style="width:100%">
                         <thead class="bg-primary">
                             <tr>
                                 <td>No</td>
+								<td>No Reg</td>
                                 <td>Nama Peminjam</td>
+                                <td>Judul Buku</td>
                                 <td>Tgl Pinjam</td>
                                 <td>Tgl Kembali</td>
                                 <td>Status</td>
                                 <td>Denda</td>
-                                <td>Action</td>
+                                <td class="text-center">Action</td>
                             </tr>
                         </thead>
                         <tbody>
+							<?php
+								$i=1;
+								foreach($transaksi as $trx):
+							?>
                             <tr>
-                                <td>1</td>
-                                <td>Tajul</td>
-                                <td>12 Agustus 1945</td>
-                                <td>-</td>
-                                <td>OnGoing</td>
-                                <td>-</td>
-                                <td>
-                                    <a href="" class="btn btn-sm btn-warning">Kembali</a>
-                                    <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                                <td><?= $i++ ?></td>
+								<td><?= $trx['no_reg'] ?></td>
+                                <td><?= $trx['nama_siswa'] ?></td>
+                                <td><?= $trx['judul_buku'] ?></td>
+                                <td><?= date('d-M-Y', strtotime($trx['tgl_pinjam'])) ?></td>
+                                <td><?= ($trx['tgl_kembali']=='')?'-':date('d-M-Y', strtotime($trx['tgl_kembali'])) ?></td>
+                                <td><?= ($trx['tgl_kembali']=='')?'OnGoing':'Selesai' ?></td>
+                                <td><?= ($trx['denda']=='')?'':'Rp.'.number_format($trx['denda']) ?></td>
+                                <td class="text-center">
+									<?php if($trx['tgl_kembali']==''): ?>
+										<button class="btn btn-sm btn-warning kembali" data-id="<?= $trx['id'] ?>" data-toggle="modal" data-target="#modal-kembali">Kembali</button>
+									<?php else: ?>
+										<button class="btn btn-sm btn-secondary" disabled>Kembali</button>
+									<?php endif; ?>
+                                    <a href="<?= base_url('transaksi/hapus/'.$trx['id']) ?>" class="btn btn-sm btn-danger">Hapus</a>
                                 </td>
                             </tr>
-                             <tr>
-                                <td>2</td>
-                                <td>Ahmad</td>
-                                <td>13 Agustus 1945</td>
-                                <td>23 Agustus 1945</td>
-                                <td>Selesai</td>
-                                <td>-</td>
-                                <td>
-                                    <a href="" class="btn btn-sm btn-warning disabled">Kembali</a>
-                                    <a href="" class="btn btn-sm btn-danger">Hapus</a>
-                                </td>
-                            </tr>
+							<?php endforeach; ?>
                         </tbody>
                     </table>
-               </div>
-           </div>
-       </div>
+               	</div>
+           	</div>
+       	</div>
     </div>
 
 </section>
 <!-- /.content -->
+
+<div class="modal fade" id="add-data">
+	<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">Tambah Data</h4>
+		</div>
+		<form action="<?= base_url('transaksi/peminjaman') ?>" method="POST" role="form">
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="no_reg">No Registrasi</label>
+					<input type="text" class="form-control" id="no_reg" name="no_reg" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="nama_user">Nama Peminjam</label>
+					<input type="text" class="form-control" id="nama_user" name="nama_user" required>
+				</div>
+				<div class="form-group">
+					<label for="kd_buku">Kode Buku</label>
+					<input type="text" class="form-control" id="kd_buku" name="kd_buku" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="judul_buku">Judul Buku</label>
+					<input type="text" class="form-control" id="judul_buku" name="judul_buku" required>
+				</div>
+				<div class="form-group">
+					<label for="tgl_pinjam">Tanggal Pinjam</label>
+					<input type="date" class="form-control" id="tgl_pinjam" name="tgl_pinjam" value="<?= date('Y-m-d') ?>" required>
+					<small class="text-danger">
+						*durasi peminjaman maksimal 7 hari, lebih dari itu akan dikenakan denda
+					</small>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+	<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-kembali">
+	<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">Pengembalian Buku</h4>
+		</div>
+		<form id="form-kembali" action="" method="POST" role="form">
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="no_reg2">No Registrasi</label>
+					<input type="text" class="form-control" id="no_reg2" name="no_reg2" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="nama_user2">Nama Peminjam</label>
+					<input type="text" class="form-control" id="nama_user2" name="nama_user2" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="kd_buku2">Kode Buku</label>
+					<input type="text" class="form-control" id="kd_buku2" name="kd_buku2" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="judul_buku2">Judul Buku</label>
+					<input type="text" class="form-control" id="judul_buku2" name="judul_buku2" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="tgl_pinjam2">Tanggal Pinjam</label>
+					<input type="date" class="form-control" id="tgl_pinjam2" name="tgl_pinjam2" readonly required>
+				</div>
+				<div class="form-group">
+					<label for="tgl_kembali">Tanggal kembali</label>
+					<input type="date" class="form-control" id="tgl_kembali" value="<?= date('Y-m-d') ?>" name="tgl_kembali" required>
+					<small class="text-warning">
+						*durasi peminjaman maksimal 7 hari, lebih dari itu akan dikenakan denda
+					</small>
+				</div>
+				<div class="form-group">
+					<label for="denda">Denda</label>
+					<input type="number" class="form-control" id="denda" name="denda" >
+					<small  class="text-danger">*Telat 0 hari</small>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+	<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$( "#nama_user" ).autocomplete({
+			source: "<?php echo site_url('admin/get_siswa/?');?>",
+			select: function (event, ui) {
+				$('#no_reg').val(ui.item.no_reg);
+			}
+		});
+
+		$( "#judul_buku" ).autocomplete({
+			source: "<?php echo site_url('admin/get_buku/?');?>",
+			select: function (event, ui) {
+				$('#kd_buku').val(ui.item.kd_buku);
+			}
+		});
+
+		$(document).on('click', '.kembali', function(){
+			let id = $(this).data('id');
+			$('#form-kembali').attr('action', "<?php echo site_url('transaksi/pengembalian/');?>"+id);
+			$.ajax({
+				url: "<?php echo site_url('transaksi/getdata/');?>"+id,
+				method:'GET',
+				dataType:'JSON',
+				data: {id: id},
+				success: function(res){
+					$("#no_reg2").val(res.no_reg);
+					$("#nama_user2").val(res.nama_siswa);
+					$("#kd_buku2").val(res.kd_buku);
+					$("#judul_buku2").val(res.judul_buku);
+					$("#tgl_pinjam2").val(res.tgl_pinjam);
+				}
+			})
+		});
+	});
+</script>
