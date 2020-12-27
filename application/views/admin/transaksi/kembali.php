@@ -41,7 +41,7 @@
                                     <td><?= date('d-M-Y', strtotime($trx['tgl_kembali'])) ?></td>
                                     <td><?= 'Rp.'.number_format($trx['denda']) ?></td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-success">Cetak</a>
+                                        <a href="<?= base_url('laporan/kembali/'.$trx['id']) ?>" target="_blank" class="btn btn-sm btn-success">Cetak</a>
                                         <a href="<?= base_url('transaksi/hapus/'.$trx['id']) ?>" class="btn btn-sm btn-danger">Hapus</a>
                                     </td>
                                 </tr>

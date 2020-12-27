@@ -37,6 +37,9 @@
                         <ul class="nav navbar-nav">
                             <li class="<?= ($title == 'Home') ? 'active' : '' ?>"><a href="<?= base_url('/') ?>">Home</a></li>
                             <li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('page/buku') ?>">Buku</a></li>
+                            <?php if (isset($_SESSION['isLogin'])) : ?>
+                            <li class="<?= ($title == 'History') ? 'active' : '' ?>"><a href="<?= base_url('page/history') ?>">Riwayat</a></li>
+                            <?php endif; ?>
                             <li class="<?= ($title == 'Tentang') ? 'active' : '' ?>"><a href="<?= base_url('page/tentang') ?>">Tentang</a></li>
                             <li class="<?= ($title == 'Kontak') ? 'active' : '' ?>"><a href="<?= base_url('page/kontak') ?>">Kontak Kami</a></li>
                         </ul>

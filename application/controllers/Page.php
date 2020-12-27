@@ -3,6 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Page extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('M_transaksi', 'm_transaksi');
+    }
 
     public function buku()
     {
@@ -18,13 +23,21 @@ class Page extends CI_Controller
     public function tentang()
     {
         $data['title'] = 'Tentang';
-        $this->template->load('user/template', 'pages/kontak', $data);
+        $this->template->load('user/template', 'pages/tentang', $data);
     }
 
     public function kontak()
     {
         $data['title'] = 'Kontak';
         $this->template->load('user/template', 'pages/kontak', $data);
+    }
+
+    public function history()
+    {
+        $data['title'] = 'History';
+        $no_reg = $this->session->userdata('no_reg');
+        $data['transaksi'] = $this->m_transaksi->getByUser($no_reg);
+        $this->template->load('user/template', 'pages/history', $data);
     }
 
     public function login()

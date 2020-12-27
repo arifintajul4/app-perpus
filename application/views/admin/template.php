@@ -128,6 +128,7 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
+                    <?php if($this->session->userdata('hak_akses')=='admin'): ?>
                     <li class="treeview <?= ($title == 'Transaksi Pinjam' || $title =='Transaksi Kembali') ? 'active' : '' ?>">
 						<a href="#">
 							<i class="fa fa-table"></i>
@@ -141,7 +142,7 @@
 							<li class="<?= ($title == 'Transaksi Kembali') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/kembali') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
 						</ul>
 	        		</li>
-                    <li class="treeview <?= ($title == 'Buku' || $title == 'Siswa') ? 'active' : '' ?>">
+                    <li class="treeview <?= ($title == 'Buku' || $title == 'Siswa' || $title == 'Admin List') ? 'active' : '' ?>">
 						<a href="#">
 							<i class="fa fa-database"></i>
 							<span>Master Data</span>
@@ -152,14 +153,16 @@
 						<ul class="treeview-menu">
 							<li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
 							<li class="<?= ($title == 'Siswa') ? 'active' : '' ?>"><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
-							<li><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
+							<li class="<?= ($title == 'Admin List') ? 'active' : '' ?>"><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
 						</ul>
 	        		</li>
+                    <?php else: ?>
                     <li class="<?= ($title == 'Laporan') ? 'active' : '' ?>">
                         <a href="<?= base_url('laporan') ?>">
                             <i class="fa fa-file-text-o"></i> <span>Laporan</span>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <li>
                         <a href="<?= base_url('auth/logout') ?>" onclick="return confirm('apakah anda yakin?')">
                             <i class="fa fa-sign-out"></i> <span>Logout</span>

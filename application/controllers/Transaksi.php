@@ -17,6 +17,10 @@ class Transaksi extends CI_Controller
 
     public function pinjam()
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
+            redirect(base_url());
+        }
+
         $data['title']  = 'Transaksi Pinjam';
         $data['transaksi'] = $this->m_transaksi->getPinjam();
         $this->template->load('admin/template', 'admin/transaksi/pinjam', $data);
@@ -24,6 +28,10 @@ class Transaksi extends CI_Controller
 
     public function kembali()
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
+            redirect(base_url());
+        }
+
         $data['title']  = 'Transaksi Kembali';
         $data['transaksi'] = $this->m_transaksi->getKembali();
         $this->template->load('admin/template', 'admin/transaksi/kembali', $data);
@@ -31,6 +39,10 @@ class Transaksi extends CI_Controller
 
     public function peminjaman()
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
+            redirect(base_url());
+        }
+
         $kd_buku = $this->input->post('kd_buku');
         $buku = $this->db->get_where('buku', ['kd_buku'=>$kd_buku])->row_array();
         $jml_buku = (int)$buku['jumlah'];
@@ -53,6 +65,10 @@ class Transaksi extends CI_Controller
 
     public function pengembalian($id)
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
+            redirect(base_url());
+        }
+
         $trx = $this->db->get_where('transaksi', ['id'=>$id])->row_array();
         $buku = $this->db->get_where('buku', ['kd_buku'=>$trx['kd_buku']])->row_array();
         $jml_buku = (int)$buku['jumlah'];
@@ -74,12 +90,11 @@ class Transaksi extends CI_Controller
 
     public function userpinjam($id)
     {
-        $no_reg = $this->session->userdata('no_reg');
-
-        if($this->db->get_where('transaksi', ['no_reg'=>$no_reg, 'tgl_kembali'=>''])){
-            $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Anda hanya dapat meminjam 1 buku dalam 1 waktu, harap mengembalikan buku yang dipinjam terlebih dahulu agar dapat melakukan peminjaman lagi.</div>');
-            redirect('/');
+        if (!$this->session->userdata('isLogin')) {
+            redirect(base_url());
         }
+
+        $no_reg = $this->session->userdata('no_reg');
 
         $buku = $this->db->get_where('buku', ['id'=>$id])->row_array();
         $jml_buku = (int)$buku['jumlah'];
@@ -102,6 +117,10 @@ class Transaksi extends CI_Controller
 
     public function hapus($id)
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
+            redirect(base_url());
+        }
+        
         $trx = $this->db->get_where('transaksi', ['id'=>$id])->row_array();
         $buku = $this->db->get_where('buku', ['kd_buku'=>$trx['kd_buku']])->row_array();
 

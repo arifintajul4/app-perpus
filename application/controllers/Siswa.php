@@ -47,8 +47,24 @@ class Siswa extends CI_Controller
 
     public function update($id)
     {
-        if(isset($_POST)){
-           
+        if(isset($_POST['submit'])){    
+            $data= [
+                'nama_siswa' => $this->input->post('nama_siswa'),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'kelas' => $this->input->post('kelas'),
+            ];
+            if( $this->input->post('password') !== '' ){
+                $data['password'] =  password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+            }
+            if($this->db->update('siswa', $data, ['id'=>$id])){
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Ubah Data!</div>');
+                redirect('/siswa');
+            }else{
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal Ubah Data!</div>');
+                redirect('/siswa');
+            }
+        }else{
+            redirect('/siswa');
         }
     }
 

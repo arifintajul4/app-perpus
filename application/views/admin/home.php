@@ -28,7 +28,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-tag"></i></span>
+                <span class="info-box-icon bg-red"><i class="fa fa-money"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Jumlah<br>Denda</span>
@@ -76,6 +76,7 @@
         
         
     </div>
+	<?php if($this->session->userdata('hak_akses')=='admin'): ?>
     <!-- /.row -->
     <h3>Data Transaksi Terkini</h3>
     <div class="row ">
@@ -128,7 +129,7 @@
            	</div>
        	</div>
     </div>
-
+	<?php endif; ?>									
 </section>
 <!-- /.content -->
 

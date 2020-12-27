@@ -18,14 +18,18 @@ class Auth extends CI_Controller
             $password = $this->input->post('password');
 
             $user = $this->db->get_where('admin', ['username' => $username])->row_array();
-
+            if($user['status']=='1'){
+                $hak_akses = 'admin';
+            }else{
+                $hak_akses = 'keperpus';
+            }
             if ($user) {
                 if (password_verify($password, $user['password'])) {
                     $data = [
                         'isLogin'   => true,
                         'username'  => $user['username'],
                         'nama'      => $user['nama_lengkap'],
-                        'hak_akses' => 'admin',
+                        'hak_akses' => $hak_akses,
                     ];
                     $this->session->set_userdata($data);
                     redirect('/admin');
