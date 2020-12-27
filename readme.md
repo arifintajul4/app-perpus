@@ -6,7 +6,7 @@
 ### 🤔 Apa itu App Perpus?
 Aplikasi Perpustakan Onlen yang dibuat oleh <a href="https://github.com/arifintajul4"> Tajul Arifin S </a>. **AppPerpus adalah agar siswa dapat dengan mudah melakukan peminjaman buku dan agar pihak perpustakan mudah untuk mencatat dan megolah transaksi peminjaman maupun pengembalian buku**
 
-### 🤨 Fitur apa saja yang tersedia di KelasKita?
+### 🤨 Fitur apa saja yang tersedia di AppPerpus?
 - Autentikasi Admin
 - List Buku & CRUD
 - Siswa & CRUD
@@ -25,14 +25,17 @@ Aplikasi Perpustakan Onlen yang dibuat oleh <a href="https://github.com/arifinta
 **Admin Default Account**
 - Username: admin
 - Password: admin
+app-perpus/auth
 
 **Kepala Perpustakaan Default Account**
 - Username: keperpus
 - Password: 123456
+app-perpus/auth
 
 **Siswa Default Account**
 - Username: REG002
 - Password: 123456
+app-perpus/page/login
 
 ------------
 
