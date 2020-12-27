@@ -5,6 +5,10 @@ class Buku extends CI_Controller
 {
     public function index()
     {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') !== 'admin') {
+            redirect(base_url());
+        }
+
         $data = [
             'title'    => 'Buku',
             'buku'     => $this->db->order_by('id', 'desc')->get('buku')->result_array()
@@ -14,7 +18,7 @@ class Buku extends CI_Controller
 
     public function add()
     {
-        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin' || $this->session->userdata('hak_akses') != 'keperpus') {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
             redirect(base_url());
         }
 
@@ -55,7 +59,7 @@ class Buku extends CI_Controller
 
     public function update($id)
     {
-        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin' || $this->session->userdata('hak_akses') != 'keperpus') {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
             redirect(base_url());
         }
 
@@ -100,11 +104,11 @@ class Buku extends CI_Controller
 
     public function delete($id)
     {
-        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin' || $this->session->userdata('hak_akses') != 'keperpus') {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
             redirect(base_url());
         }
         
-        if($this->db->delete('buku', $id)){
+        if($this->db->delete('buku', ['id'=>$id])){
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Hapus Data!</div>');
             redirect('/buku');
         }else{
