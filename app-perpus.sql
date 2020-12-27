@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Des 2020 pada 01.56
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.7
+-- Waktu pembuatan: 27 Des 2020 pada 07.22
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `nama_lengkap`, `password`, `status`) VALUES
-(1, 'admin', 'Administrator', '$2y$10$r7bdumUI64GkGDELZ934M.ahJJwfZAdl/bn0e2SHKwdzNaq4/Ii26', '1');
+(1, 'admin', 'Administrator', '$2y$10$r7bdumUI64GkGDELZ934M.ahJJwfZAdl/bn0e2SHKwdzNaq4/Ii26', '1'),
+(2, 'keperpus', 'Kepala Perpustakaan', '$2y$10$PCP.5LR8skTpBW/lekkkaOeqjEXaq6X1HhEZfTpGD9EuGiq3yrvAu', '0');
 
 -- --------------------------------------------------------
 
@@ -50,9 +51,9 @@ INSERT INTO `admin` (`id`, `username`, `nama_lengkap`, `password`, `status`) VAL
 
 CREATE TABLE `buku` (
   `id` int(11) NOT NULL,
-  `kd_buku` varchar(25) NOT NULL,
+  `kd_buku` char(5) NOT NULL,
   `judul_buku` varchar(100) NOT NULL,
-  `id_kategori` int(11) NOT NULL,
+  `sampul` varchar(255) NOT NULL,
   `penerbit` varchar(100) NOT NULL,
   `pengarang` varchar(100) NOT NULL,
   `tahun_terbit` char(4) NOT NULL,
@@ -64,26 +65,79 @@ CREATE TABLE `buku` (
 -- Dumping data untuk tabel `buku`
 --
 
-INSERT INTO `buku` (`id`, `kd_buku`, `judul_buku`, `id_kategori`, `penerbit`, `pengarang`, `tahun_terbit`, `nomor_rak`, `jumlah`) VALUES
-(2, 'BK001', 'Belajar Algoritma Pemrograman', 1, 'Sinar Mas', 'Abdul Sahid', '2017', 10, 100);
+INSERT INTO `buku` (`id`, `kd_buku`, `judul_buku`, `sampul`, `penerbit`, `pengarang`, `tahun_terbit`, `nomor_rak`, `jumlah`) VALUES
+(2, 'BK001', 'Bahasa Inggris', 'binggris.jpeg', 'Sinar Mas', 'Abdul Sahid', '2017', 10, 100),
+(3, 'BK002', 'Bahasa Indonesia', 'bindo.jpg', 'Sinar Dunia', 'Tajul', '2020', 10, 99),
+(4, 'BK003', 'Geografi', 'geografi.jpg', 'Sinar Mas', 'Tajul', '2020', 11, 100),
+(5, 'BK004', 'Sejarah', 'sejarah.jpg', 'Sinar Dunia', 'Tajul', '2020', 9, 100);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Struktur dari tabel `laporan`
 --
 
-CREATE TABLE `kategori` (
+CREATE TABLE `laporan` (
   `id` int(11) NOT NULL,
-  `judul_kategori` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tgl_buat` date NOT NULL,
+  `judul_laporan` varchar(50) NOT NULL,
+  `jenis` enum('semua','pinjam','kembali') NOT NULL,
+  `tgl_awal` date DEFAULT NULL,
+  `tgl_akhir` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data untuk tabel `laporan`
 --
 
-INSERT INTO `kategori` (`id`, `judul_kategori`) VALUES
-(1, 'Pemrograman');
+INSERT INTO `laporan` (`id`, `tgl_buat`, `judul_laporan`, `jenis`, `tgl_awal`, `tgl_akhir`) VALUES
+(11, '2020-12-18', 'Laporan Bulanan', 'semua', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `id` int(11) NOT NULL,
+  `no_reg` char(6) NOT NULL,
+  `nama_siswa` varchar(50) NOT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `kelas` varchar(5) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `siswa`
+--
+
+INSERT INTO `siswa` (`id`, `no_reg`, `nama_siswa`, `jenis_kelamin`, `kelas`, `password`) VALUES
+(8, 'REG001', 'Tajul Arifin S', 'L', 'VII', '$2y$10$/rm33ODvbXA8z98FxA/tBeMF8L9y20jSM3dStM2OB5lKN0ANMLT46'),
+(9, 'REG002', 'Bambang', 'L', 'VII', '$2y$10$RMSZ1A20R1od7wFDratWoeJV8rWYmmc2xA.X7PIzwb79E9M1f3uZ2');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id` int(11) NOT NULL,
+  `no_reg` char(6) NOT NULL,
+  `kd_buku` char(5) NOT NULL,
+  `tgl_pinjam` date NOT NULL,
+  `tgl_kembali` date DEFAULT NULL,
+  `denda` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `no_reg`, `kd_buku`, `tgl_pinjam`, `tgl_kembali`, `denda`) VALUES
+(9, 'REG002', 'BK002', '2020-12-18', '2020-12-18', 0),
+(10, 'REG002', 'BK002', '2020-12-27', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -101,12 +155,25 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `buku_ibfk_1` (`id_kategori`);
+  ADD UNIQUE KEY `kd_buku` (`kd_buku`);
 
 --
--- Indeks untuk tabel `kategori`
+-- Indeks untuk tabel `laporan`
 --
-ALTER TABLE `kategori`
+ALTER TABLE `laporan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `no_reg` (`no_reg`);
+
+--
+-- Indeks untuk tabel `transaksi`
+--
+ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -117,29 +184,31 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori`
+-- AUTO_INCREMENT untuk tabel `laporan`
 --
-ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `laporan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- AUTO_INCREMENT untuk tabel `siswa`
 --
+ALTER TABLE `siswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Ketidakleluasaan untuk tabel `buku`
+-- AUTO_INCREMENT untuk tabel `transaksi`
 --
-ALTER TABLE `buku`
-  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
