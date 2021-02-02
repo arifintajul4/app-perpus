@@ -107,7 +107,8 @@ class Buku extends CI_Controller
         if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') != 'admin') {
             redirect(base_url());
         }
-        
+        $res = $this->db->get_where('buku', ['id'=>$id])->row_array();
+        unlink('assets/img/buku/'.$res['sampul']);
         if($this->db->delete('buku', ['id'=>$id])){
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Hapus Data!</div>');
             redirect('/buku');
