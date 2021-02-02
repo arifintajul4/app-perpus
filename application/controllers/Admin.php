@@ -10,7 +10,7 @@ class Admin extends CI_Controller
     }
     public function index()
     {
-        if (!$this->session->userdata('isLogin') && $this->session->userdata('hak_akses') != 'admin') {
+        if (!$this->session->userdata('isLogin') || $this->session->userdata('hak_akses') !== 'admin') {
             redirect(base_url());
         }
 

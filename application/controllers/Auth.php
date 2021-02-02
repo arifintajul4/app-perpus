@@ -20,8 +20,10 @@ class Auth extends CI_Controller
             $user = $this->db->get_where('admin', ['username' => $username])->row_array();
             if($user['status']=='1'){
                 $hak_akses = 'admin';
-            }else{
+            }elseif($user['status']=='0'){
                 $hak_akses = 'keperpus';
+            }else{
+                $hak_akses = 'siswa';
             }
             if ($user) {
                 if (password_verify($password, $user['password'])) {
