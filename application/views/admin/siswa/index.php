@@ -65,7 +65,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="no_reg">No Registrasi</label>
-                        <input type="text" name="no_reg" id="no_reg" class="form-control" required>
+                        <input type="text" name="no_reg" id="no_reg" class="form-control" readonly required>
                     </div>
                     <div class="form-group">
                         <label for="nama_siswa">Nama Siswa</label>
@@ -112,8 +112,7 @@
         $('#addBuku').on('click', function() {
             $('.modal-title').html('Tambah Data Siswa');
             $('#form').attr('action', '<?= base_url('siswa/add') ?>');
-            $('#no_reg').attr('readonly', false);
-            $('#no_reg').val('');
+            $('#no_reg').val('<?= $no_reg ?>');
             $('#nama_siswa').val('');
             $('#jenis_kelamin').val('');
             $('#kelas').val('');
@@ -125,7 +124,6 @@
             let id = $(this).data('id');
             $('.modal-title').html('Edit Data Siswa');
             $('#form').attr('action', '<?= base_url('buku/update/') ?>' + id);
-            $('#no_reg').attr('readonly', true);
             $.ajax({
                 url: '<?= base_url('siswa/getdata/'); ?>'+id,
                 method: 'POST',

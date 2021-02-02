@@ -13,9 +13,16 @@ class Siswa extends CI_Controller
 
     public function index()
     {
+        $query = $this->db->query("SELECT MAX(no_reg) as no_reg from siswa");
+        $hasil = $query->row();
+        $nourut = substr($hasil->no_reg, 3, 3);
+        $no_reg = (int)$nourut + 1;
+        $no_reg = "REG".sprintf("%03s", $no_reg);
+
         $data = [
             'title'    => 'Siswa',
-            'siswa'     => $this->db->get('siswa')->result_array()
+            'siswa'    => $this->db->get('siswa')->result_array(),
+            'no_reg'   => $no_reg, 
         ];
         $this->template->load('admin/template', 'admin/siswa/index', $data);
     }
@@ -23,13 +30,9 @@ class Siswa extends CI_Controller
     public function add()
     {
         if(isset($_POST)){
-            $query = $this->db->query("SELECT MAX(no_reg) as no_reg from siswa");
-            $hasil = $query->row();
-            $nourut = substr($hasil->no_reg, 3, 3);
-            $no_reg = (int)$nourut + 1;
-            $no_reg = "REG".sprintf("%03s", $no_reg);
+            
             $data = [
-                'no_reg' => $no_reg,
+                'no_reg' => $this->input->post('no_reg'),
                 'nama_siswa' => $this->input->post('nama_siswa'),
                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                 'kelas' => $this->input->post('kelas'),
