@@ -49,8 +49,8 @@ class Transaksi extends CI_Controller
         $stokbaru = $jml_buku - 1;
 
         $data = [
-            'no_reg' => $this->input->post('no_reg'),
-            'kd_buku' => $kd_buku,
+            'no_reg'     => $this->input->post('no_reg'),
+            'kd_buku'    => $kd_buku,
             'tgl_pinjam' => $this->input->post('tgl_pinjam'),
         ];
         
@@ -101,8 +101,8 @@ class Transaksi extends CI_Controller
         $stokbaru = $jml_buku - 1;
 
         $data = [
-            'no_reg' => $no_reg,
-            'kd_buku' => $buku['kd_buku'],
+            'no_reg'     => $no_reg,
+            'kd_buku'    => $buku['kd_buku'],
             'tgl_pinjam' => $this->input->post('tgl_pinjam'),
         ];
 

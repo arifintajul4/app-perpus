@@ -17,12 +17,12 @@ class Admin extends CI_Controller
         $data = [
             'title'     => 'Admin',
             'transaksi' => $this->m_transaksi->getData(),
-            'jml_buku' => $this->db->get('buku')->num_rows(),
-            'denda' => $this->db->select_sum('denda')->get('transaksi')->row_array()['denda'],
-            'pinjam' => $this->db->get_where('transaksi', ['tgl_kembali'=>null])->num_rows(),
-            'kembali' => $this->db->get_where('transaksi', ['tgl_kembali !='=>null])->num_rows(),
+            'jml_buku'  => $this->db->get('buku')->num_rows(),
+            'denda'     => $this->db->select_sum('denda')->get('transaksi')->row_array()['denda'],
+            'pinjam'    => $this->db->get_where('transaksi', ['tgl_kembali'=>null])->num_rows(),
+            'kembali'   => $this->db->get_where('transaksi', ['tgl_kembali !='=>null])->num_rows(),
         ];
-        // var_dump($data); die;
+
         $this->template->load('admin/template', 'admin/home', $data);
     }
 
@@ -37,9 +37,9 @@ class Admin extends CI_Controller
     {
         if(isset($_POST['submit'])){
             $data= [
-                'username' => $this->input->post('username'),
-                'nama_lengkap' => $this->input->post('nama_lengkap'),
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'username'      => $this->input->post('username'),
+                'nama_lengkap'  => $this->input->post('nama_lengkap'),
+                'password'      => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             ];
             if($this->db->insert('admin', $data)){
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Tambah Data!</div>');
@@ -57,8 +57,8 @@ class Admin extends CI_Controller
     {
         if(isset($_POST['submit'])){    
             $data= [
-                'username' => $this->input->post('username'),
-                'nama_lengkap' => $this->input->post('nama_lengkap'),
+                'username'      => $this->input->post('username'),
+                'nama_lengkap'  => $this->input->post('nama_lengkap'),
             ];
             if( $this->input->post('password') !== '' ){
                 $data['password'] =  password_hash($this->input->post('password'), PASSWORD_DEFAULT);

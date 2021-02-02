@@ -9,9 +9,9 @@ class Buku extends CI_Controller
             redirect(base_url());
         }
 
-        $query = $this->db->query("SELECT MAX(kd_buku) as kd_buku from buku");
-        $hasil = $query->row();
-        $nourut = substr($hasil->kd_buku, 2, 3);
+        $query   = $this->db->query("SELECT MAX(kd_buku) as kd_buku from buku");
+        $hasil   = $query->row();
+        $nourut  = substr($hasil->kd_buku, 2, 3);
         $kd_buku = (int)$nourut + 1;
         $kd_buku = "BK".sprintf("%03s", $kd_buku);
 
@@ -32,17 +32,17 @@ class Buku extends CI_Controller
 
         if(isset($_POST)){
             $data = [
-                'kd_buku'=>$this->input->post('kd_buku'),
-                'judul_buku'=>$this->input->post('judul_buku'),
-                'penerbit'=>$this->input->post('penerbit'),
-                'pengarang'=>$this->input->post('pengarang'),
-                'tahun_terbit'=>$this->input->post('tahun_terbit'),
-                'nomor_rak'=>$this->input->post('nomor_rak'),
-                'jumlah'=>$this->input->post('jumlah'),
+                'kd_buku'       =>$this->input->post('kd_buku'),
+                'judul_buku'    =>$this->input->post('judul_buku'),
+                'penerbit'      =>$this->input->post('penerbit'),
+                'pengarang'     =>$this->input->post('pengarang'),
+                'tahun_terbit'  =>$this->input->post('tahun_terbit'),
+                'nomor_rak'     =>$this->input->post('nomor_rak'),
+                'jumlah'        =>$this->input->post('jumlah'),
             ];
             
-            $config['upload_path']          = 'assets/img/buku/';
-            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['upload_path']      = 'assets/img/buku/';
+            $config['allowed_types']    = 'gif|jpg|png|jpeg';
 
             $this->load->library('upload', $config);
 
@@ -73,15 +73,15 @@ class Buku extends CI_Controller
 
         if(isset($_POST)){
             $data = [
-                'judul_buku'=>$this->input->post('judul_buku'),
-                'penerbit'=>$this->input->post('penerbit'),
-                'pengarang'=>$this->input->post('pengarang'),
-                'tahun_terbit'=>$this->input->post('tahun_terbit'),
-                'nomor_rak'=>$this->input->post('nomor_rak'),
-                'jumlah'=>$this->input->post('jumlah'),
+                'judul_buku'    =>$this->input->post('judul_buku'),
+                'penerbit'      =>$this->input->post('penerbit'),
+                'pengarang'     =>$this->input->post('pengarang'),
+                'tahun_terbit'  =>$this->input->post('tahun_terbit'),
+                'nomor_rak'     =>$this->input->post('nomor_rak'),
+                'jumlah'        =>$this->input->post('jumlah'),
             ];
-            $config['upload_path']          = 'assets/img/buku/';
-            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['upload_path']      = 'assets/img/buku/';
+            $config['allowed_types']    = 'gif|jpg|png|jpeg';
 
             $this->load->library('upload', $config);
 

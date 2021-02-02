@@ -32,11 +32,11 @@ class Siswa extends CI_Controller
         if(isset($_POST)){
             
             $data = [
-                'no_reg' => $this->input->post('no_reg'),
-                'nama_siswa' => $this->input->post('nama_siswa'),
+                'no_reg'        => $this->input->post('no_reg'),
+                'nama_siswa'    => $this->input->post('nama_siswa'),
                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'kelas' => $this->input->post('kelas'),
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+                'kelas'         => $this->input->post('kelas'),
+                'password'      => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
             ];
             if($this->db->insert('siswa', $data)){
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Registrasi!<br>No Registrasi anda adalah <strong>'.$no_reg.'</strong>. Silahkan catat dan gunakan untuk login.</div>');
@@ -52,9 +52,9 @@ class Siswa extends CI_Controller
     {
         if(isset($_POST['submit'])){    
             $data= [
-                'nama_siswa' => $this->input->post('nama_siswa'),
+                'nama_siswa'    => $this->input->post('nama_siswa'),
                 'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                'kelas' => $this->input->post('kelas'),
+                'kelas'         => $this->input->post('kelas'),
             ];
             if( $this->input->post('password') !== '' ){
                 $data['password'] =  password_hash($this->input->post('password'), PASSWORD_DEFAULT);
