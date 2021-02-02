@@ -71,7 +71,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="kd_buku">Kode Buku</label>
-                        <input type="text" name="kd_buku" id="kd_buku" class="form-control" required>
+                        <input type="text" name="kd_buku" id="kd_buku" class="form-control" readonly required>
                     </div>
                     <div class="form-group">
                         <label for="judul_buku">Judul Buku</label>
@@ -119,11 +119,10 @@
         $('#addBuku').on('click', function() {
             $('.modal-title').html('Tambah Data Buku');
             $('#form').attr('action', '<?= base_url('buku/add') ?>');
-            $('#kd_buku').attr('readonly', false);
             $('#judul_buku').val('');
             $('#sampul').val('');
             $('#sampul').attr('required', true);
-            $('#kd_buku').val('');
+            $('#kd_buku').val('<?= $kd_buku ?>');
             $('#pengarang').val('');
             $('#penerbit').val('');
             $('#tahun_terbit').val('');
@@ -135,7 +134,6 @@
             let id = $(this).data('id');
             $('.modal-title').html('Edit Data Buku');
             $('#form').attr('action', '<?= base_url('buku/update/') ?>' + id);
-            $('#kd_buku').attr('readonly', true);
             $('#sampul').val('');
             $('#sampul').attr('required', false);
             $.ajax({

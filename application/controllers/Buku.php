@@ -9,10 +9,18 @@ class Buku extends CI_Controller
             redirect(base_url());
         }
 
+        $query = $this->db->query("SELECT MAX(kd_buku) as kd_buku from buku");
+        $hasil = $query->row();
+        $nourut = substr($hasil->kd_buku, 2, 3);
+        $kd_buku = (int)$nourut + 1;
+        $kd_buku = "BK".sprintf("%03s", $kd_buku);
+
         $data = [
             'title'    => 'Buku',
-            'buku'     => $this->db->order_by('id', 'desc')->get('buku')->result_array()
+            'buku'     => $this->db->order_by('id', 'desc')->get('buku')->result_array(),
+            'kd_buku'  => $kd_buku,
         ];
+        // var_dump($kd_buku); die;
         $this->template->load('admin/template', 'admin/buku/index', $data);
     }
 
