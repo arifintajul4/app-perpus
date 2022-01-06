@@ -60,6 +60,10 @@ git clone https://github.com/arifintajul4/app-perpus.git
 Contributions, issues and feature requests di persilahkan.
 Jangan ragu untuk memeriksa halaman masalah jika Anda ingin berkontribusi. **Berhubung Project ini saya sudah selesaikan sendiri, namun banyak fitur yang kalian dapat tambahkan silahkan berkontribusi yaa!**
 
+## Donate
+
+[Trakteer](https://trakteer.id/yaelahjul/tip)
+
 
 ## 📝 License
 - Copyright © 2020 Tajul Arifin S.
