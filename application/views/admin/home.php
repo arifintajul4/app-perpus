@@ -33,7 +33,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Jumlah<br>Denda</span>
                     <span class="info-box-number"><?= $denda==null?'Rp.0':'Rp.'.number_format($denda) ?></span>
-                    <a href="<?= base_url('kategori') ?>">lihat selengkapnya ></a>
+                    <a href="<?= base_url('transaksi/kembali') ?>">lihat selengkapnya ></a>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -48,7 +48,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Jumlah<br>Peminjaman</span>
                     <span class="info-box-number"><?= $pinjam ?></span>
-                    <a href="<?= base_url('peminjaman') ?>">lihat selengkapnya ></a>
+                    <a href="<?= base_url('transaksi/pinjam') ?>">lihat selengkapnya ></a>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -62,7 +62,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Jumlah<br>Pengembalian</span>
                     <span class="info-box-number"><?= $kembali ?></span>
-                    <a href="<?= base_url('pengembalian') ?>">lihat selengkapnya ></a>
+                    <a href="<?= base_url('transaksi/kembali') ?>">lihat selengkapnya ></a>
                 </div>
                 <!-- /.info-box-content -->
             </div>
