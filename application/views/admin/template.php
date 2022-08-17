@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/AdminLTE.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/skins/_all-skins.min.css') ?>">
-    <link rel="stylesheet" href="<?php echo base_url().'assets/jquery-ui/jquery-ui.css'?>">
+    <link rel="stylesheet" href="<?php echo base_url() . 'assets/jquery-ui/jquery-ui.css' ?>">
     <style>
         .ui-autocomplete {
             position: absolute;
@@ -49,7 +49,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="<?= base_url('assets/bower_components/jquery/dist/jquery.min.js') ?>"></script>
-    <script src="<?php echo base_url().'assets/jquery-ui/jquery-ui.js'?>" type="text/javascript"></script>
+    <script src="<?php echo base_url() . 'assets/jquery-ui/jquery-ui.js' ?>" type="text/javascript"></script>
 
 </head>
 
@@ -88,12 +88,12 @@
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="<?= base_url('assets/img/avatar.jpg') ?>" class="img-circle" alt="User Image">
-                                    <p> <?= $this->session->userdata('nama')?></p>
+                                    <p> <?= $this->session->userdata('nama') ?></p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="<?= base_url('admin/ubahpass') ?>" class="btn btn-default btn-flat">Ubah Password</a>
+                                        <a href="<?= base_url('admin/profile') ?>" class="btn btn-default btn-flat">Ubah Password</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="<?= base_url('auth/logout') ?>" onclick="return confirm('apakah anda yakin?')" class="btn btn-default btn-flat">Sign out</a>
@@ -128,40 +128,40 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <?php if($this->session->userdata('hak_akses')=='admin'): ?>
-                    <li class="treeview <?= ($title == 'Transaksi Pinjam' || $title =='Transaksi Kembali') ? 'active' : '' ?>">
-						<a href="#">
-							<i class="fa fa-table"></i>
-							<span>Transaksi</span>
-							<span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i>
-							</span>
-						</a>
-						<ul class="treeview-menu">
-							<li class="<?= ($title == 'Transaksi Pinjam') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/pinjam') ?>"><i class="fa fa-circle-o"></i> Peminjaman</a></li>
-							<li class="<?= ($title == 'Transaksi Kembali') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/kembali') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
-						</ul>
-	        		</li>
-                    <li class="treeview <?= ($title == 'Buku' || $title == 'Siswa' || $title == 'Admin List') ? 'active' : '' ?>">
-						<a href="#">
-							<i class="fa fa-database"></i>
-							<span>Master Data</span>
-							<span class="pull-right-container">
-								<i class="fa fa-angle-left pull-right"></i>
-							</span>
-						</a>
-						<ul class="treeview-menu">
-							<li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
-							<li class="<?= ($title == 'Siswa') ? 'active' : '' ?>"><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
-							<li class="<?= ($title == 'Admin List') ? 'active' : '' ?>"><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
-						</ul>
-	        		</li>
-                    <?php else: ?>
-                    <li class="<?= ($title == 'Laporan') ? 'active' : '' ?>">
-                        <a href="<?= base_url('laporan') ?>">
-                            <i class="fa fa-file-text-o"></i> <span>Laporan</span>
-                        </a>
-                    </li>
+                    <?php if ($this->session->userdata('hak_akses') == 'admin') : ?>
+                        <li class="treeview <?= ($title == 'Transaksi Pinjam' || $title == 'Transaksi Kembali') ? 'active' : '' ?>">
+                            <a href="#">
+                                <i class="fa fa-table"></i>
+                                <span>Transaksi</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="<?= ($title == 'Transaksi Pinjam') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/pinjam') ?>"><i class="fa fa-circle-o"></i> Peminjaman</a></li>
+                                <li class="<?= ($title == 'Transaksi Kembali') ? 'active' : '' ?>"><a href="<?= base_url('transaksi/kembali') ?>"><i class="fa fa-circle-o"></i> Pengembalian</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview <?= ($title == 'Buku' || $title == 'Siswa' || $title == 'Admin List') ? 'active' : '' ?>">
+                            <a href="#">
+                                <i class="fa fa-database"></i>
+                                <span>Master Data</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="<?= ($title == 'Buku') ? 'active' : '' ?>"><a href="<?= base_url('buku') ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
+                                <li class="<?= ($title == 'Siswa') ? 'active' : '' ?>"><a href="<?= base_url('siswa') ?>"><i class="fa fa-circle-o"></i> Siswa</a></li>
+                                <li class="<?= ($title == 'Admin List') ? 'active' : '' ?>"><a href="<?= base_url('admin/list') ?>"><i class="fa fa-circle-o"></i> Admin</a></li>
+                            </ul>
+                        </li>
+                    <?php else : ?>
+                        <li class="<?= ($title == 'Laporan') ? 'active' : '' ?>">
+                            <a href="<?= base_url('laporan') ?>">
+                                <i class="fa fa-file-text-o"></i> <span>Laporan</span>
+                            </a>
+                        </li>
                     <?php endif; ?>
                     <li>
                         <a href="<?= base_url('auth/logout') ?>" onclick="return confirm('apakah anda yakin?')">

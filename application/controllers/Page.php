@@ -12,9 +12,9 @@ class Page extends CI_Controller
     public function buku()
     {
         $data['title'] = 'Buku';
-        if(isset($_GET['cari'])){
+        if (isset($_GET['cari'])) {
             $data['buku'] = $this->db->order_by('id', 'desc')->like('judul_buku', $_GET['cari'])->get('buku')->result_array();
-        }else{
+        } else {
             $data['buku'] = $this->db->order_by('id', 'desc')->get('buku')->result_array();
         }
         $this->template->load('user/template', 'pages/buku', $data);
@@ -43,7 +43,7 @@ class Page extends CI_Controller
     public function login()
     {
         $data['title'] = "Login";
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             $no_reg = $this->input->post('no_reg');
             $password = $this->input->post('password');
 
@@ -54,6 +54,7 @@ class Page extends CI_Controller
                     $data = [
                         'isLogin'   => true,
                         'no_reg'    => $user['no_reg'],
+                        'foto'      => $user['foto'],
                         'nama'      => $user['nama_siswa'],
                         'hak_akses' => 'siswa',
                     ];
@@ -74,12 +75,12 @@ class Page extends CI_Controller
     public function register()
     {
         $data['title'] = "Register";
-        if(isset($_POST['submit'])){
+        if (isset($_POST['submit'])) {
             $query = $this->db->query("SELECT MAX(no_reg) as no_reg from siswa");
             $hasil = $query->row();
             $nourut = substr($hasil->no_reg, 3, 3);
             $no_reg = (int)$nourut + 1;
-            $no_reg = "REG".sprintf("%03s", $no_reg);
+            $no_reg = "REG" . sprintf("%03s", $no_reg);
             $data = [
                 'no_reg' => $no_reg,
                 'nama_siswa' => $this->input->post('nama_siswa'),
@@ -87,10 +88,10 @@ class Page extends CI_Controller
                 'kelas' => $this->input->post('kelas'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
             ];
-            if($this->db->insert('siswa', $data)){
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Registrasi!<br>No Registrasi anda adalah <strong>'.$no_reg.'</strong>. Silahkan catat dan gunakan untuk login.</div>');
+            if ($this->db->insert('siswa', $data)) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Registrasi!<br>No Registrasi anda adalah <strong>' . $no_reg . '</strong>. Silahkan catat dan gunakan untuk login.</div>');
                 redirect('/page/login');
-            }else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Gagal Registrasi!.</div>');
                 redirect('/page/register');
             }

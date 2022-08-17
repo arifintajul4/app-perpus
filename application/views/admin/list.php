@@ -35,7 +35,7 @@
                                     <td><?= $i++ ?></td>
                                     <td><?= $row['username'] ?></td>
                                     <td><?= $row['nama_lengkap'] ?></td>
-                                    <td><?= ($row['status']=='1')?'Admin':'Kepala Perpustakaan' ?></td>
+                                    <td><?= ($row['status'] == '1') ? 'Admin' : 'Kepala Perpustakaan' ?></td>
                                     <td class="text-center">
                                         <button class="btn btn-sm btn-warning edit" data-toggle="modal" data-target="#modal-default" data-id="<?= $row['id']; ?>"><i class="fa fa-edit"></i></button>
                                         <a href="<?= base_url('admin/delete/' . $row['id']); ?>" class="btn btn-sm btn-danger" onclick="return confirm('apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -115,10 +115,12 @@
             $('#password').attr('required', false);
             $('#konfir-pass').attr('required', false);
             $.ajax({
-                url: '<?= base_url('admin/getdata/'); ?>'+id,
+                url: '<?= base_url('admin/getdata/'); ?>' + id,
                 method: 'POST',
                 dataType: 'JSON',
-                data: {id: id },
+                data: {
+                    id: id
+                },
                 success: function(data) {
                     $('#username').val(data.username);
                     $('#nama_lengkap').val(data.nama_lengkap);
