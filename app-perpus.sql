@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 27 Des 2020 pada 07.22
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.2.34
+-- Host: localhost:3306
+-- Waktu pembuatan: 17 Agu 2022 pada 07.21
+-- Versi server: 5.7.33
+-- Versi PHP: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,7 +67,7 @@ CREATE TABLE `buku` (
 
 INSERT INTO `buku` (`id`, `kd_buku`, `judul_buku`, `sampul`, `penerbit`, `pengarang`, `tahun_terbit`, `nomor_rak`, `jumlah`) VALUES
 (2, 'BK001', 'Bahasa Inggris', 'binggris.jpeg', 'Sinar Mas', 'Abdul Sahid', '2017', 10, 100),
-(3, 'BK002', 'Bahasa Indonesia', 'bindo.jpg', 'Sinar Dunia', 'Tajul', '2020', 10, 99),
+(3, 'BK002', 'Bahasa Indonesia', 'bindo.jpg', 'Sinar Dunia', 'Tajul', '2020', 10, 100),
 (4, 'BK003', 'Geografi', 'geografi.jpg', 'Sinar Mas', 'Tajul', '2020', 11, 100),
 (5, 'BK004', 'Sejarah', 'sejarah.jpg', 'Sinar Dunia', 'Tajul', '2020', 9, 100);
 
@@ -103,6 +103,7 @@ CREATE TABLE `siswa` (
   `id` int(11) NOT NULL,
   `no_reg` char(6) NOT NULL,
   `nama_siswa` varchar(50) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `kelas` varchar(5) NOT NULL,
   `password` varchar(255) NOT NULL
@@ -112,9 +113,9 @@ CREATE TABLE `siswa` (
 -- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `no_reg`, `nama_siswa`, `jenis_kelamin`, `kelas`, `password`) VALUES
-(8, 'REG001', 'Tajul Arifin S', 'L', 'VII', '$2y$10$/rm33ODvbXA8z98FxA/tBeMF8L9y20jSM3dStM2OB5lKN0ANMLT46'),
-(9, 'REG002', 'Bambang', 'L', 'VII', '$2y$10$RMSZ1A20R1od7wFDratWoeJV8rWYmmc2xA.X7PIzwb79E9M1f3uZ2');
+INSERT INTO `siswa` (`id`, `no_reg`, `nama_siswa`, `foto`, `jenis_kelamin`, `kelas`, `password`) VALUES
+(8, 'REG001', 'Tajul Arifin S', NULL, 'L', 'VII', '$2y$10$/rm33ODvbXA8z98FxA/tBeMF8L9y20jSM3dStM2OB5lKN0ANMLT46'),
+(9, 'REG002', 'Bambang2', NULL, 'L', 'VII', '$2y$10$RMSZ1A20R1od7wFDratWoeJV8rWYmmc2xA.X7PIzwb79E9M1f3uZ2');
 
 -- --------------------------------------------------------
 
@@ -137,7 +138,7 @@ CREATE TABLE `transaksi` (
 
 INSERT INTO `transaksi` (`id`, `no_reg`, `kd_buku`, `tgl_pinjam`, `tgl_kembali`, `denda`) VALUES
 (9, 'REG002', 'BK002', '2020-12-18', '2020-12-18', 0),
-(10, 'REG002', 'BK002', '2020-12-27', NULL, NULL);
+(10, 'REG002', 'BK002', '2020-12-27', '2022-08-17', 591000);
 
 --
 -- Indexes for dumped tables
